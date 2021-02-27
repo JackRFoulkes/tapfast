@@ -11,6 +11,12 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     private float timerValue;
 
+    [SerializeField]
+    private Text timerText;
+
+    [SerializeField]
+    private Text hitCountText;
+
     Timer timer;
 
     // Awake is called before start
@@ -28,6 +34,9 @@ public class LevelController : MonoBehaviour
         timer.TimerFinished += timer_TimerFinished; 
         timer.TimerEnabled = true;
         timer.CountDownFrom = timerValue;
+
+        //Hide hitcount until end
+        hitCountText.enabled = false;
     }
 
     // Update is called once per frame
@@ -43,6 +52,9 @@ public class LevelController : MonoBehaviour
             {
                 GameObject circle = (GameObject)Instantiate(Resources.Load("CircleWhite"));
             }
+
+            //Show remaining time
+            timerText.text = timer.TimeValue;
         }
     }
 
@@ -59,6 +71,7 @@ public class LevelController : MonoBehaviour
         Circle[] circles = FindObjectsOfType<Circle>(true).Where(c => c.gameObject.activeSelf == false).ToArray();
 
         //Show hit count
-        GameObject.Find("HitCount").GetComponent<Text>().text = "Hit Count: " + circles.Length.ToString();
+        hitCountText.enabled = true;
+        hitCountText.text = "Hit Count: " + circles.Length.ToString();
     }
 }

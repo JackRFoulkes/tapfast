@@ -27,14 +27,16 @@ public class Timer : MonoBehaviour
             else
             {
                 //Debug.Log(DisplayTime(CountDownFrom));
-                TimerEnabled = false;
                 CountDownFrom = 0;
+                TimerEnabled = false;
                 OnTimerFinished(EventArgs.Empty);
             }
         }
     }
     string DisplayTime(float timeToDisplay)
     {
+        timeToDisplay += 1;
+
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
