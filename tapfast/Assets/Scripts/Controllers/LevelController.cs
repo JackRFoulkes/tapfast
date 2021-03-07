@@ -17,6 +17,12 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     private Text hitCountText;
 
+    [SerializeField]
+    private GameObject restartButton;
+
+    [SerializeField]
+    private GameObject mainMenuButton;
+
     Timer timer;
 
     // Awake is called before start
@@ -35,8 +41,8 @@ public class LevelController : MonoBehaviour
         timer.TimerEnabled = true;
         timer.CountDownFrom = timerValue;
 
-        //Hide hitcount until end
-        hitCountText.enabled = false;
+        //Hide Items
+        HideItems();
     }
 
     // Update is called once per frame
@@ -70,8 +76,19 @@ public class LevelController : MonoBehaviour
         //Check all hit circles
         Circle[] circles = FindObjectsOfType<Circle>(true).Where(c => c.gameObject.activeSelf == false).ToArray();
 
-        //Show hit count
+        //Show items again
         hitCountText.enabled = true;
         hitCountText.text = "Hit Count: " + circles.Length.ToString();
+
+        restartButton.SetActive(true);
+        mainMenuButton.SetActive(true);
+    }
+
+    void HideItems()
+    {
+        //Hide these items until end
+        hitCountText.enabled = false;
+        restartButton.SetActive(false);
+        mainMenuButton.SetActive(false);
     }
 }
