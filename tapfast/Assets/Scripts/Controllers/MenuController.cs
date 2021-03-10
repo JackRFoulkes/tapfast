@@ -9,24 +9,6 @@ using System.Linq;
 
 public class MenuController : MonoBehaviour
 {
-    // Awake
-    private void Awake()
-    {
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Public methods exposed to the editor
     public void PlayGame(int mode)
     {

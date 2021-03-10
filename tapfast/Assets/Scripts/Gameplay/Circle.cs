@@ -11,18 +11,6 @@ public class Circle : MonoBehaviour
         gameObject.transform.position = Utils.RandomScreenPosition();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // When this object is clicked
     private void OnMouseDown()
     {

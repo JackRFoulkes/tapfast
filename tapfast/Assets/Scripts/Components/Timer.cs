@@ -22,11 +22,9 @@ public class Timer : MonoBehaviour
             if (CountDownFrom > 0)
             {
                 CountDownFrom -= Time.deltaTime;
-                //Debug.Log(DisplayTime(CountDownFrom));
             }
             else
             {
-                //Debug.Log(DisplayTime(CountDownFrom));
                 CountDownFrom = 0;
                 TimerEnabled = false;
                 OnTimerFinished(EventArgs.Empty);

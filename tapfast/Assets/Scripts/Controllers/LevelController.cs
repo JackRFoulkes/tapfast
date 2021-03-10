@@ -25,12 +25,6 @@ public class LevelController : MonoBehaviour
 
     Timer timer;
 
-    // Awake is called before start
-    private void Awake()
-    {
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
