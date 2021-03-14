@@ -8,13 +8,13 @@ public static class Utils
     public static Vector3 RandomScreenPosition()
     {
         float spawnY = Random.Range(
-            Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y, 
-            Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 200)).y
+            Camera.main.ScreenToWorldPoint(new Vector2(0, 150)).y, 
+            Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 350)).y
             );
 
         float spawnX = Random.Range(
-            Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, 
-            Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 200, 0)).x
+            Camera.main.ScreenToWorldPoint(new Vector2(150, 0)).x, 
+            Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 150, 0)).x
             );
 
         Vector3 randomPos = new Vector3(spawnX, spawnY, 0);

@@ -23,13 +23,15 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     private GameObject mainMenuButton;
 
+    [SerializeField]
+    private GameObject backButton;
+
     Timer timer;
 
     // Start is called before the first frame update
     void Start()
     {
         // Create a timer and assign the custom Timer Finished Event
-
         if(GlobalData.GameMode == 0)
         {
             GameObject timerObject = new GameObject();
@@ -41,7 +43,7 @@ public class LevelController : MonoBehaviour
         else if (GlobalData.GameMode == 1)
         {
             timerText.text = "INFINITE";
-        }        
+        }
 
         //Hide Items
         HideItems();
