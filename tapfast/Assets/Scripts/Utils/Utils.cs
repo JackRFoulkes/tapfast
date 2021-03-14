@@ -9,12 +9,12 @@ public static class Utils
     {
         float spawnY = Random.Range(
             Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y, 
-            Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 100)).y
+            Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 200)).y
             );
 
         float spawnX = Random.Range(
             Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, 
-            Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 100, 0)).x
+            Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 200, 0)).x
             );
 
         Vector3 randomPos = new Vector3(spawnX, spawnY, 0);

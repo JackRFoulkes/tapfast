@@ -29,11 +29,19 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         // Create a timer and assign the custom Timer Finished Event
-        GameObject timerObject = new GameObject();
-        timer = timerObject.AddComponent<Timer>();
-        timer.TimerFinished += timer_TimerFinished; 
-        timer.TimerEnabled = true;
-        timer.CountDownFrom = timerValue;
+
+        if(GlobalData.GameMode == 0)
+        {
+            GameObject timerObject = new GameObject();
+            timer = timerObject.AddComponent<Timer>();
+            timer.TimerFinished += timer_TimerFinished;
+            timer.TimerEnabled = true;
+            timer.CountDownFrom = timerValue;
+        }
+        else if (GlobalData.GameMode == 1)
+        {
+            timerText.text = "INFINITE";
+        }        
 
         //Hide Items
         HideItems();
@@ -42,19 +50,31 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timer.TimerEnabled)
+        if(GlobalData.GameMode == 0 && timer.TimerEnabled)
         {
+            //Show remaining time
+            timerText.text = timer.TimeValue;
+
             //Check all circles
             Circle[] circles = FindObjectsOfType<Circle>(false);
 
             //If there are no inactive circles, create one
-            if(circles.Length == 0)
+            if (circles.Length == 0)
             {
                 GameObject circle = (GameObject)Instantiate(Resources.Load("CircleWhite"));
             }
+        }
+        else if (GlobalData.GameMode == 1)
+        {
 
-            //Show remaining time
-            timerText.text = timer.TimeValue;
+            //Check all circles
+            Circle[] circles = FindObjectsOfType<Circle>(false);
+
+            //If there are no inactive circles, create one
+            if (circles.Length == 0)
+            {
+                GameObject circle = (GameObject)Instantiate(Resources.Load("CircleWhite"));
+            }
         }
     }
 

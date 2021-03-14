@@ -12,6 +12,7 @@ public class MenuController : MonoBehaviour
     // Public methods exposed to the editor
     public void PlayGame(int mode)
     {
+        GlobalData.GameMode = mode;
         SceneManager.LoadScene("Play");
     }
 
