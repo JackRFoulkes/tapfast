@@ -32,17 +32,24 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         // Create a timer and assign the custom Timer Finished Event
-        if(GlobalData.GameMode == 0)
+        if(GlobalData.GameMode == (int)GlobalData.GameModes.Classic)
         {
             GameObject timerObject = new GameObject();
             timer = timerObject.AddComponent<Timer>();
             timer.TimerFinished += timer_TimerFinished;
             timer.TimerEnabled = true;
             timer.CountDownFrom = timerValue;
+            timerText.text = timer.TimeValue;
         }
-        else if (GlobalData.GameMode == 1)
+        else if (GlobalData.GameMode == (int)GlobalData.GameModes.Infinite)
         {
-            timerText.text = "INFINITE";
+            GameObject timerObject = new GameObject();
+            timer = timerObject.AddComponent<Timer>();
+            timer.TimerFinished += timer_TimerFinished;
+            timer.TimerEnabled = true;
+            timer.CountDownFrom = 0f;
+            timer.CountUp = true;
+            timerText.text = "00:00";
         }
 
         //Hide Items
@@ -52,31 +59,22 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GlobalData.GameMode == 0 && timer.TimerEnabled)
+        if(GlobalData.GameMode == (int)GlobalData.GameModes.Classic && timer.TimerEnabled)
         {
             //Show remaining time
             timerText.text = timer.TimeValue;
 
-            //Check all circles
-            Circle[] circles = FindObjectsOfType<Circle>(false);
-
-            //If there are no inactive circles, create one
-            if (circles.Length == 0)
-            {
-                GameObject circle = (GameObject)Instantiate(Resources.Load("CircleWhite"));
-            }
+            // Check active circles
+            CheckActiveCircles();
         }
-        else if (GlobalData.GameMode == 1)
+        else if (GlobalData.GameMode == (int)GlobalData.GameModes.Infinite)
         {
+            //Show remaining time
+            timerText.text = timer.TimeValue;
 
-            //Check all circles
-            Circle[] circles = FindObjectsOfType<Circle>(false);
-
-            //If there are no inactive circles, create one
-            if (circles.Length == 0)
-            {
-                GameObject circle = (GameObject)Instantiate(Resources.Load("CircleWhite"));
-            }
+            // Check active and inactive circles
+            CheckActiveCircles();
+            CheckHitCircles(true);
         }
     }
 
@@ -90,12 +88,8 @@ public class LevelController : MonoBehaviour
         }
 
         //Check all hit circles
-        Circle[] circles = FindObjectsOfType<Circle>(true).Where(c => c.gameObject.activeSelf == false).ToArray();
-
-        //Show items again
         hitCountText.enabled = true;
-        hitCountText.text = "Hit Count: " + circles.Length.ToString();
-
+        CheckHitCircles(true);
         restartButton.SetActive(true);
         mainMenuButton.SetActive(true);
     }
@@ -103,8 +97,35 @@ public class LevelController : MonoBehaviour
     void HideItems()
     {
         //Hide these items until end
-        hitCountText.enabled = false;
+        if(GlobalData.GameMode == (int)GlobalData.GameModes.Classic)
+        {
+            hitCountText.enabled = false;
+        }
+
         restartButton.SetActive(false);
         mainMenuButton.SetActive(false);
+    }
+
+    void CheckActiveCircles()
+    {
+        //Check all circles
+        Circle[] circles = FindObjectsOfType<Circle>(false);
+
+        //If there are no inactive circles, create one
+        if (circles.Length == 0)
+        {
+            GameObject circle = (GameObject)Instantiate(Resources.Load("CircleWhite"));
+        }
+    }
+
+    void CheckHitCircles(bool ShowHitCount)
+    {
+        // Get circles
+        Circle[] circles = FindObjectsOfType<Circle>(true).Where(c => c.gameObject.activeSelf == false).ToArray();
+
+        if(ShowHitCount)
+        {
+            hitCountText.text = "Hit Count: " + circles.Length.ToString();
+        }
     }
 }

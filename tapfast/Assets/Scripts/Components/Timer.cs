@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     public bool TimerEnabled { get; set; }
     public float CountDownFrom { get; set; }
     public string TimeValue { get { return DisplayTime(CountDownFrom); } }
+    public bool CountUp { get; set; }
     #endregion
 
     #region Events
@@ -19,15 +20,22 @@ public class Timer : MonoBehaviour
     {
         if (TimerEnabled)
         {
-            if (CountDownFrom > 0)
+            if(CountUp)
             {
-                CountDownFrom -= Time.deltaTime;
+                CountDownFrom += Time.deltaTime;
             }
-            else
+            else if (!CountUp)
             {
-                CountDownFrom = 0;
-                TimerEnabled = false;
-                OnTimerFinished(EventArgs.Empty);
+                if (CountDownFrom > 0)
+                {
+                    CountDownFrom -= Time.deltaTime;
+                }
+                else
+                {
+                    CountDownFrom = 0;
+                    TimerEnabled = false;
+                    OnTimerFinished(EventArgs.Empty);
+                }
             }
         }
     }
